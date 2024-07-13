@@ -59,6 +59,7 @@ pub struct MaestroMiniVariables {
 
 }
 
+#[derive(Debug)]
 pub enum UscSerialMode {
     SerialModeUsbChained = 1,
     SerialModeUartDetectBaudRate = 2,

@@ -45,7 +45,8 @@ pub fn microseconds_to_position(microseconds: f32) -> u32 {
     return (microseconds * 4.0) as u32;
 }
 
-pub fn period_to_microseconds(period: u32, servos_available: u8) -> f32 {
+// Note u32 only applies for mini_maestro_servo_period (changed from u32 to u8) (might have to change back later)
+pub fn period_to_microseconds(period: u8, servos_available: u8) -> f32 {
     return period as f32 * 256.0 * servos_available as f32 / 12.0;
 }
 
@@ -80,7 +81,7 @@ pub fn specify_servo(p: UscParameter, servo: u8) -> UscParameter {
     return (p as u8 + servo + ServoParameterBytes).try_into().unwrap()
 }
 
-struct Usc {
+pub struct Usc {
     servo_count: u8,
     stack_size: u8,
     call_stack_size: u8,
@@ -92,11 +93,11 @@ enum MaestroType {
     MiniMaestro,
 }
 
-pub const MicroMaestroStackSize: u8 = 32;
-pub const MicroMaestroCallStackSize: u8 = 10;
+pub const MICRO_MAESTRO_STACK_SIZE: u8 = 32;
+pub const MICRO_MAESTRO_CALL_STACK_SIZE: u8 = 10;
 
-pub const MiniMaestroStackSize: u8 = 126;
-pub const MiniMaestroCallStackSize: u8 = 126;
+pub const MINI_MAESTRO_STACK_SIZE: u8 = 126;
+pub const MINI_MAESTRO_CALL_STACK_SIZE: u8 = 126;
 
 impl Usc {
     pub fn new(device: nusb::Device) -> Self {
@@ -108,12 +109,12 @@ impl Usc {
             0x8c => servo_count = 24,
             _ => panic!("Unknown product id: {}.", device.get_product_id())
         }
-        let mut stack_size = MiniMaestroStackSize;
-        let mut call_stack_size = MiniMaestroCallStackSize;
+        let mut stack_size = MINI_MAESTRO_STACK_SIZE;
+        let mut call_stack_size = MINI_MAESTRO_CALL_STACK_SIZE;
         let mut driver_type = MaestroType::MiniMaestro;
         if servo_count == 6 {
-            stack_size = MicroMaestroStackSize;
-            call_stack_size = MicroMaestroCallStackSize;
+            stack_size = MICRO_MAESTRO_STACK_SIZE;
+            call_stack_size = MICRO_MAESTRO_CALL_STACK_SIZE;
             driver_type = MaestroType::MicroMaestro;
         }
 
@@ -128,7 +129,7 @@ impl Usc {
             stack_size,
             call_stack_size,
             driver_type,
-            handler
+            //handler
         }
     }
 
