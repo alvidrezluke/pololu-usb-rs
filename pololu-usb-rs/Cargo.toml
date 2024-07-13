@@ -1,0 +1,9 @@
+[package]
+name = "pololu-usb-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nusb = "0.1.9"
+usb_enumeration = "0.2.0"
+hex = "0.4.3"
