@@ -1,4 +1,5 @@
 pub mod maestro;
 pub mod protocols;
-pub mod usb;
+pub mod serial;
 pub mod settings;
+pub mod usb;

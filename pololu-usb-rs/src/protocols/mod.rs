@@ -19,14 +19,14 @@ pub enum UscRequest {
     RequestRestartScriptAtSubroutine = 0xA3,
     RequestRestartScriptAtSubroutineWithParameter = 0xA4,
     RequestRestartScript = 0xA5,
-    RequestStartBootloader = 0xFF
+    RequestStartBootloader = 0xFF,
 }
 
 pub struct ServoStatus {
     position: u16,
     target: u16,
     speed: u16,
-    accel: u8
+    accel: u8,
 }
 
 pub struct MaestroVariables {
@@ -56,7 +56,6 @@ pub struct MaestroMiniVariables {
     errors: u16,
     program_counter: u16,
     script_done: u8,
-
 }
 
 #[derive(Debug)]
@@ -81,14 +80,14 @@ pub enum UscError {
 pub enum PerformanceFlag {
     PErrorAdvancedUpdate = 0,
     PErrorBasicUpdate = 1,
-    PErrorPeriod = 2
+    PErrorPeriod = 2,
 }
 
- // Eww just Eww
+// Eww just Eww
 pub enum UscParameter {
-    ParameterInitialized = 0, // 1 byte - 0 or 0xFF
-    ParameterServosAvailable = 1, // 1 byte - 0-5
-    ParameterServoPeriod = 2, // 1 byte - ticks allocated to each servo/256
+    ParameterInitialized = 0,           // 1 byte - 0 or 0xFF
+    ParameterServosAvailable = 1,       // 1 byte - 0-5
+    ParameterServoPeriod = 2,           // 1 byte - ticks allocated to each servo/256
     ParameterSerialMode = 3, // 1 byte unsigned value.  Valid values are SERIAL_MODE_*.  Init variable.
     ParameterSerialFixedBaudRate = 4, // 2-byte unsigned value; 0 means autodetect.  Init parameter.
     ParameterSerialTimeout = 6, // 2-byte unsigned value
@@ -97,65 +96,65 @@ pub enum UscParameter {
     ParameterSerialDeviceNumber = 10, // 1 byte unsigned value, 0-127
     ParameterSerialBaudDetectType = 11, // 1 byte value
 
-    ParameterIoMaskC = 84, // 1 byte - pins used for I/O instead of servo
+    ParameterIoMaskC = 84,     // 1 byte - pins used for I/O instead of servo
     ParameterOutputMaskC = 85, // 1 byte - outputs that are enabled
 
-    ParameterChannelModes03 = 12, // 1 byte - channel modes 0-3
-    ParameterChannelModes47 = 13, // 1 byte - channel modes 4-7
-    ParameterChannelModes811 = 14, // 1 byte - channel modes 8-11
-    ParameterChannelModes1215 = 15, // 1 byte - channel modes 12-15
-    ParameterChannelModes1619 = 16, // 1 byte - channel modes 16-19
-    ParameterChannelModes2023 = 17, // 1 byte - channel modes 20-23
+    ParameterChannelModes03 = 12,          // 1 byte - channel modes 0-3
+    ParameterChannelModes47 = 13,          // 1 byte - channel modes 4-7
+    ParameterChannelModes811 = 14,         // 1 byte - channel modes 8-11
+    ParameterChannelModes1215 = 15,        // 1 byte - channel modes 12-15
+    ParameterChannelModes1619 = 16,        // 1 byte - channel modes 16-19
+    ParameterChannelModes2023 = 17,        // 1 byte - channel modes 20-23
     ParameterMiniMaestroServoPeriodL = 18, // servo period: 3-byte unsigned values, units of quarter microseconds
     ParameterMiniMaestroServoPeriodHu = 19,
-    ParameterEnablePullups = 21,  // 1 byte: 0 or 1
+    ParameterEnablePullups = 21,       // 1 byte: 0 or 1
     ParameterScriptCrc = 22, // 2 bytes - stores a checksum of the bytecode program, for comparison
     ParameterScriptDone = 24, // 1 byte - copied to scriptDone on startup
     ParameterSerialMiniSscOffset = 25, // 1 byte (0-254)
     ParameterServoMultiplier = 26, // 1 byte (0-255)
 
     // 9 * 24 = 216, so we can safely start at 30
-    ParameterServo0Home = 30, // 2 byte home position (0=off; 1=ignore)
-    ParameterServo0Min = 32, // 1 byte min allowed value (x2^6)
-    ParameterServo0Max = 33, // 1 byte max allowed value (x2^6)
+    ParameterServo0Home = 30,    // 2 byte home position (0=off; 1=ignore)
+    ParameterServo0Min = 32,     // 1 byte min allowed value (x2^6)
+    ParameterServo0Max = 33,     // 1 byte max allowed value (x2^6)
     ParameterServo0Neutral = 34, // 2 byte neutral position
-    ParameterServo0Range = 36, // 1 byte range
-    ParameterServo0Speed = 37, // 1 byte (5 mantissa,3 exponent) us per 10ms
+    ParameterServo0Range = 36,   // 1 byte range
+    ParameterServo0Speed = 37,   // 1 byte (5 mantissa,3 exponent) us per 10ms
     ParameterServo0Acceleration = 38, // 1 byte (speed changes that much every 10ms)
-    ParameterServo1Home = 39, // 2 byte home position (0=off; 1=ignore)
-    ParameterServo1Min = 41, // 1 byte min allowed value (x2^6)
-    ParameterServo1Max = 42, // 1 byte max allowed value (x2^6)
+    ParameterServo1Home = 39,    // 2 byte home position (0=off; 1=ignore)
+    ParameterServo1Min = 41,     // 1 byte min allowed value (x2^6)
+    ParameterServo1Max = 42,     // 1 byte max allowed value (x2^6)
     ParameterServo1Neutral = 43, // 2 byte neutral position
-    ParameterServo1Range = 45, // 1 byte range
-    ParameterServo1Speed = 46, // 1 byte (5 mantissa,3 exponent) us per 10ms
+    ParameterServo1Range = 45,   // 1 byte range
+    ParameterServo1Speed = 46,   // 1 byte (5 mantissa,3 exponent) us per 10ms
     ParameterServo1Acceleration = 47, // 1 byte (speed changes that much every 10ms)
-    ParameterServo2Home = 48, // 2 byte home position (0=off; 1=ignore)
-    ParameterServo2Min = 50, // 1 byte min allowed value (x2^6)
-    ParameterServo2Max = 51, // 1 byte max allowed value (x2^6)
+    ParameterServo2Home = 48,    // 2 byte home position (0=off; 1=ignore)
+    ParameterServo2Min = 50,     // 1 byte min allowed value (x2^6)
+    ParameterServo2Max = 51,     // 1 byte max allowed value (x2^6)
     ParameterServo2Neutral = 52, // 2 byte neutral position
-    ParameterServo2Range = 54, // 1 byte range
-    ParameterServo2Speed = 55, // 1 byte (5 mantissa,3 exponent) us per 10ms
+    ParameterServo2Range = 54,   // 1 byte range
+    ParameterServo2Speed = 55,   // 1 byte (5 mantissa,3 exponent) us per 10ms
     ParameterServo2Acceleration = 56, // 1 byte (speed changes that much every 10ms)
-    ParameterServo3Home = 57, // 2 byte home position (0=off; 1=ignore)
-    ParameterServo3Min = 59, // 1 byte min allowed value (x2^6)
-    ParameterServo3Max = 60, // 1 byte max allowed value (x2^6)
+    ParameterServo3Home = 57,    // 2 byte home position (0=off; 1=ignore)
+    ParameterServo3Min = 59,     // 1 byte min allowed value (x2^6)
+    ParameterServo3Max = 60,     // 1 byte max allowed value (x2^6)
     ParameterServo3Neutral = 61, // 2 byte neutral position
-    ParameterServo3Range = 63, // 1 byte range
-    ParameterServo3Speed = 64, // 1 byte (5 mantissa,3 exponent) us per 10ms
+    ParameterServo3Range = 63,   // 1 byte range
+    ParameterServo3Speed = 64,   // 1 byte (5 mantissa,3 exponent) us per 10ms
     ParameterServo3Acceleration = 65, // 1 byte (speed changes that much every 10ms)
-    ParameterServo4Home = 66, // 2 byte home position (0=off; 1=ignore)
-    ParameterServo4Min = 68, // 1 byte min allowed value (x2^6)
-    ParameterServo4Max = 69, // 1 byte max allowed value (x2^6)
+    ParameterServo4Home = 66,    // 2 byte home position (0=off; 1=ignore)
+    ParameterServo4Min = 68,     // 1 byte min allowed value (x2^6)
+    ParameterServo4Max = 69,     // 1 byte max allowed value (x2^6)
     ParameterServo4Neutral = 70, // 2 byte neutral position
-    ParameterServo4Range = 72, // 1 byte range
-    ParameterServo4Speed = 73, // 1 byte (5 mantissa,3 exponent) us per 10ms
+    ParameterServo4Range = 72,   // 1 byte range
+    ParameterServo4Speed = 73,   // 1 byte (5 mantissa,3 exponent) us per 10ms
     ParameterServo4Acceleration = 74, // 1 byte (speed changes that much every 10ms)
-    ParameterServo5Home = 75, // 2 byte home position (0=off; 1=ignore)
-    ParameterServo5Min = 77, // 1 byte min allowed value (x2^6)
-    ParameterServo5Max = 78, // 1 byte max allowed value (x2^6)
+    ParameterServo5Home = 75,    // 2 byte home position (0=off; 1=ignore)
+    ParameterServo5Min = 77,     // 1 byte min allowed value (x2^6)
+    ParameterServo5Max = 78,     // 1 byte max allowed value (x2^6)
     ParameterServo5Neutral = 79, // 2 byte neutral position
-    ParameterServo5Range = 81, // 1 byte range
-    ParameterServo5Speed = 82, // 1 byte (5 mantissa,3 exponent) us per 10ms
+    ParameterServo5Range = 81,   // 1 byte range
+    ParameterServo5Speed = 82,   // 1 byte (5 mantissa,3 exponent) us per 10ms
     ParameterServo5Acceleration = 83, // 1 byte (speed changes that much every 10ms)
 }
 
@@ -168,70 +167,70 @@ impl TryFrom<u8> for UscParameter {
             0 => Ok(UscParameter::ParameterInitialized),
             1 => Ok(UscParameter::ParameterServosAvailable),
             2 => Ok(UscParameter::ParameterServoPeriod),
-            3 => Ok(UscParameter::ParameterSerialMode ),
-            4 => Ok(UscParameter::ParameterSerialFixedBaudRate ),
-            6 => Ok(UscParameter::ParameterSerialTimeout ),
-            8 => Ok(UscParameter::ParameterSerialEnableCrc ),
-            9 => Ok(UscParameter::ParameterSerialNeverSuspend ),
-            10 => Ok(UscParameter::ParameterSerialDeviceNumber ),
-            11 => Ok(UscParameter::ParameterSerialBaudDetectType ),
-            12 => Ok(UscParameter::ParameterChannelModes03 ),
-            13 => Ok(UscParameter::ParameterChannelModes47 ),
-            14 => Ok(UscParameter::ParameterChannelModes811 ),
-            15 => Ok(UscParameter::ParameterChannelModes1215 ),
+            3 => Ok(UscParameter::ParameterSerialMode),
+            4 => Ok(UscParameter::ParameterSerialFixedBaudRate),
+            6 => Ok(UscParameter::ParameterSerialTimeout),
+            8 => Ok(UscParameter::ParameterSerialEnableCrc),
+            9 => Ok(UscParameter::ParameterSerialNeverSuspend),
+            10 => Ok(UscParameter::ParameterSerialDeviceNumber),
+            11 => Ok(UscParameter::ParameterSerialBaudDetectType),
+            12 => Ok(UscParameter::ParameterChannelModes03),
+            13 => Ok(UscParameter::ParameterChannelModes47),
+            14 => Ok(UscParameter::ParameterChannelModes811),
+            15 => Ok(UscParameter::ParameterChannelModes1215),
             16 => Ok(UscParameter::ParameterIoMaskC),
             17 => Ok(UscParameter::ParameterOutputMaskC),
-            18 => Ok(UscParameter::ParameterMiniMaestroServoPeriodL ),
-            19 => Ok(UscParameter::ParameterMiniMaestroServoPeriodHu ),
-            21 => Ok(UscParameter::ParameterEnablePullups ),
-            22 => Ok(UscParameter::ParameterScriptCrc ),
-            24 => Ok(UscParameter::ParameterScriptDone ),
-            25 => Ok(UscParameter::ParameterSerialMiniSscOffset ),
-            26 => Ok(UscParameter::ParameterServoMultiplier ),
-            30 => Ok(UscParameter::ParameterServo0Home ),
-            32 => Ok(UscParameter::ParameterServo0Min ),
-            33 => Ok(UscParameter::ParameterServo0Max ),
-            34 => Ok(UscParameter::ParameterServo0Neutral ),
-            36 => Ok(UscParameter::ParameterServo0Range ),
-            37 => Ok(UscParameter::ParameterServo0Speed ),
-            38 => Ok(UscParameter::ParameterServo0Acceleration ),
-            39 => Ok(UscParameter::ParameterServo1Home ),
-            41 => Ok(UscParameter::ParameterServo1Min ),
-            42 => Ok(UscParameter::ParameterServo1Max ),
-            43 => Ok(UscParameter::ParameterServo1Neutral ),
-            45 => Ok(UscParameter::ParameterServo1Range ),
-            46 => Ok(UscParameter::ParameterServo1Speed ),
-            47 => Ok(UscParameter::ParameterServo1Acceleration ),
-            48 => Ok(UscParameter::ParameterServo2Home ),
-            50 => Ok(UscParameter::ParameterServo2Min ),
-            51 => Ok(UscParameter::ParameterServo2Max ),
-            52 => Ok(UscParameter::ParameterServo2Neutral ),
-            54 => Ok(UscParameter::ParameterServo2Range ),
-            55 => Ok(UscParameter::ParameterServo2Speed ),
-            56 => Ok(UscParameter::ParameterServo2Acceleration ),
-            57 => Ok(UscParameter::ParameterServo3Home ),
-            59 => Ok(UscParameter::ParameterServo3Min ),
-            60 => Ok(UscParameter::ParameterServo3Max ),
-            61 => Ok(UscParameter::ParameterServo3Neutral ),
-            63 => Ok(UscParameter::ParameterServo3Range ),
-            64 => Ok(UscParameter::ParameterServo3Speed ),
-            65 => Ok(UscParameter::ParameterServo3Acceleration ),
-            66 => Ok(UscParameter::ParameterServo4Home ),
-            68 => Ok(UscParameter::ParameterServo4Min ),
-            69 => Ok(UscParameter::ParameterServo4Max ),
-            70 => Ok(UscParameter::ParameterServo4Neutral ),
-            72 => Ok(UscParameter::ParameterServo4Range ),
-            73 => Ok(UscParameter::ParameterServo4Speed ),
-            74 => Ok(UscParameter::ParameterServo4Acceleration ),
-            75 => Ok(UscParameter::ParameterServo5Home ),
-            77 => Ok(UscParameter::ParameterServo5Min ),
-            78 => Ok(UscParameter::ParameterServo5Max ),
-            79 => Ok(UscParameter::ParameterServo5Neutral ),
+            18 => Ok(UscParameter::ParameterMiniMaestroServoPeriodL),
+            19 => Ok(UscParameter::ParameterMiniMaestroServoPeriodHu),
+            21 => Ok(UscParameter::ParameterEnablePullups),
+            22 => Ok(UscParameter::ParameterScriptCrc),
+            24 => Ok(UscParameter::ParameterScriptDone),
+            25 => Ok(UscParameter::ParameterSerialMiniSscOffset),
+            26 => Ok(UscParameter::ParameterServoMultiplier),
+            30 => Ok(UscParameter::ParameterServo0Home),
+            32 => Ok(UscParameter::ParameterServo0Min),
+            33 => Ok(UscParameter::ParameterServo0Max),
+            34 => Ok(UscParameter::ParameterServo0Neutral),
+            36 => Ok(UscParameter::ParameterServo0Range),
+            37 => Ok(UscParameter::ParameterServo0Speed),
+            38 => Ok(UscParameter::ParameterServo0Acceleration),
+            39 => Ok(UscParameter::ParameterServo1Home),
+            41 => Ok(UscParameter::ParameterServo1Min),
+            42 => Ok(UscParameter::ParameterServo1Max),
+            43 => Ok(UscParameter::ParameterServo1Neutral),
+            45 => Ok(UscParameter::ParameterServo1Range),
+            46 => Ok(UscParameter::ParameterServo1Speed),
+            47 => Ok(UscParameter::ParameterServo1Acceleration),
+            48 => Ok(UscParameter::ParameterServo2Home),
+            50 => Ok(UscParameter::ParameterServo2Min),
+            51 => Ok(UscParameter::ParameterServo2Max),
+            52 => Ok(UscParameter::ParameterServo2Neutral),
+            54 => Ok(UscParameter::ParameterServo2Range),
+            55 => Ok(UscParameter::ParameterServo2Speed),
+            56 => Ok(UscParameter::ParameterServo2Acceleration),
+            57 => Ok(UscParameter::ParameterServo3Home),
+            59 => Ok(UscParameter::ParameterServo3Min),
+            60 => Ok(UscParameter::ParameterServo3Max),
+            61 => Ok(UscParameter::ParameterServo3Neutral),
+            63 => Ok(UscParameter::ParameterServo3Range),
+            64 => Ok(UscParameter::ParameterServo3Speed),
+            65 => Ok(UscParameter::ParameterServo3Acceleration),
+            66 => Ok(UscParameter::ParameterServo4Home),
+            68 => Ok(UscParameter::ParameterServo4Min),
+            69 => Ok(UscParameter::ParameterServo4Max),
+            70 => Ok(UscParameter::ParameterServo4Neutral),
+            72 => Ok(UscParameter::ParameterServo4Range),
+            73 => Ok(UscParameter::ParameterServo4Speed),
+            74 => Ok(UscParameter::ParameterServo4Acceleration),
+            75 => Ok(UscParameter::ParameterServo5Home),
+            77 => Ok(UscParameter::ParameterServo5Min),
+            78 => Ok(UscParameter::ParameterServo5Max),
+            79 => Ok(UscParameter::ParameterServo5Neutral),
             81 => Ok(UscParameter::ParameterServo5Range),
-            82 => Ok(UscParameter::ParameterServo5Speed ),
-            83 => Ok(UscParameter::ParameterServo5Acceleration ),
-            _ => { Err(()) }
-        }
+            82 => Ok(UscParameter::ParameterServo5Speed),
+            83 => Ok(UscParameter::ParameterServo5Acceleration),
+            _ => Err(()),
+        };
     }
 }
 // Why Just WHY
@@ -307,6 +306,6 @@ impl TryInto<u8> for UscParameter {
             UscParameter::ParameterServo5Range => 81,
             UscParameter::ParameterServo5Speed => 82,
             UscParameter::ParameterServo5Acceleration => 83,
-        })
+        });
     }
 }

@@ -1,12 +1,11 @@
-use crate::protocols::UscSerialMode;
 use crate::maestro;
+use crate::protocols::UscSerialMode;
 
-pub const SERVO_PERIOD:u8 = 156;
-pub const SERVOS_AVAILABLE:u8 = 6;
-pub const MINI_MAESTRO_SERVO_PERIOD:u32 =  80000;
-pub const FIXED_BAUD_RATE:u32 = 9600;
-pub const SERIAL_DEVICE_NUMBER:u8 = 12;
-
+pub const SERVO_PERIOD: u8 = 156;
+pub const SERVOS_AVAILABLE: u8 = 6;
+pub const MINI_MAESTRO_SERVO_PERIOD: u32 = 80000;
+pub const FIXED_BAUD_RATE: u32 = 9600;
+pub const SERIAL_DEVICE_NUMBER: u8 = 12;
 
 #[derive(Debug)]
 pub enum ChannelMode {
@@ -17,11 +16,10 @@ pub enum ChannelMode {
 }
 
 #[derive(Debug)]
-pub enum HomeMode
-{
+pub enum HomeMode {
     Off,
     Ignore,
-    Goto
+    Goto,
 }
 
 #[derive(Debug)]
@@ -35,10 +33,10 @@ pub struct ChannelSetting {
     neutral: u16,
     range: u16,
     speed: u16,
-    accel: u16
+    accel: u16,
 }
 #[derive(Debug)]
-pub struct UscSettings{
+pub struct UscSettings {
     servos_available: u8,
     servo_period: u8,
     mini_maestro_servo_period: u32,
@@ -60,20 +58,20 @@ pub struct UscSettings{
 }
 
 // IDK ANYMORE
-impl UscSettings{
-    pub fn new() -> Self{
+impl UscSettings {
+    pub fn new() -> Self {
         let mut channel_settings: Vec<ChannelSetting> = vec![];
-        let mut servo_count:u8 = channel_settings.len() as u8;
+        let mut servo_count: u8 = channel_settings.len() as u8;
         // Kept as f32
-        let mut period_in_microseconds:f32 = 0.0;
-
+        let mut period_in_microseconds: f32 = 0.0;
 
         if servo_count == 6 {
-            period_in_microseconds = maestro::period_to_microseconds(SERVO_PERIOD, SERVOS_AVAILABLE);
+            period_in_microseconds =
+                maestro::period_to_microseconds(SERVO_PERIOD, SERVOS_AVAILABLE);
         } else {
             period_in_microseconds = (MINI_MAESTRO_SERVO_PERIOD / 4) as f32;
         }
-        return UscSettings{
+        return UscSettings {
             servos_available: SERVOS_AVAILABLE,
             servo_period: SERVO_PERIOD,
             mini_maestro_servo_period: MINI_MAESTRO_SERVO_PERIOD,
@@ -92,9 +90,7 @@ impl UscSettings{
             private_script: "".to_string(),
             servo_count,
             // private_Program: BytecodeProgram,
-        }
+        };
     }
     // pub fn setAndCompileScript(string script)
 }
-
-
