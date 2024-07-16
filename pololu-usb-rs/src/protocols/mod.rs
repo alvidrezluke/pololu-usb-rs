@@ -1,27 +1,3 @@
-pub enum UscRequest {
-    RequestGetParameter = 0x81,
-    RequestSetParameter = 0x82,
-    RequestGetVariables = 0x83,
-    RequestSetServoVariable = 0x84,
-    RequestSetTarget = 0x85,
-    RequestClearErrors = 0x86,
-
-    // These four requests are only valid on *Mini* Maestros.
-    RequestGetServoSettings = 0x87,
-    RequestGetStack = 0x88,
-    RequestGetCallStack = 0x89,
-    RequestSetPwm = 0x8A,
-
-    RequestReinitialize = 0x90,
-    RequestEraseScript = 0xA0,
-    RequestWriteScript = 0xA1,
-    RequestSetScriptDone = 0xA2, // wValue is 0 for go, 1 for stop, 2 for single-step
-    RequestRestartScriptAtSubroutine = 0xA3,
-    RequestRestartScriptAtSubroutineWithParameter = 0xA4,
-    RequestRestartScript = 0xA5,
-    RequestStartBootloader = 0xFF,
-}
-
 pub struct ServoStatus {
     position: u16,
     target: u16,

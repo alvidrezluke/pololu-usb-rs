@@ -9,5 +9,8 @@ members = [
 ]
 
 [dependencies]
+nalgebra = "0.33.0"
 nusb = "0.1.9"
+plotters = "0.3.6"
 pololu-usb-rs = { path = "pololu-usb-rs" }
+libm = "0.2.8"
