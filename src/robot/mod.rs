@@ -1,10 +1,10 @@
 mod desc;
-mod math;
 mod kinematics;
+mod math;
 
-use crate::robot::desc::{Direction, Motor};
-use libm::{acos, atan2};
-use ndarray::{array, Array1, Array2};
+use crate::robot::desc::Motor;
+
+use ndarray::{Array1, Array2};
 
 // in mm
 const LOWER_LEG_LENGTH: f64 = 41.14;

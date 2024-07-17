@@ -2,7 +2,6 @@ use ndarray::{array, Array1};
 use serde::{Deserialize, Serialize};
 use serde_yml::generate_file;
 use std::fs;
-use std::io::Read;
 
 /*
 /// Direction servo arm is set up
@@ -30,7 +29,7 @@ pub struct Motor {
     orientation: with respect to the world frame
 */
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Platform{
+pub struct Platform {
     centroid_pos: Array1<f64>,
     orientation: Array1<f64>,
 }
@@ -39,7 +38,7 @@ pub struct Platform{
     Group together parts
 */
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Leg{
+pub struct Leg {
     motor: Motor,
     top_leg_length: f64,
     bottom_leg_length: f64,
@@ -51,7 +50,7 @@ pub struct Leg{
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RobotConfig {
     platform: Platform,
-    legs: Vec<Leg>
+    legs: Vec<Leg>,
 }
 
 pub fn get_robot_params() {
@@ -82,12 +81,12 @@ pub fn set_robot_params() {
     };
     let l1 = Leg {
         motor: m1,
-        top_leg_length:  175.0,
+        top_leg_length: 175.0,
         bottom_leg_length: 41.14,
     };
-    let l2 = Leg{
+    let l2 = Leg {
         motor: m2,
-        top_leg_length:  175.0,
+        top_leg_length: 175.0,
         bottom_leg_length: 41.14,
     };
 
@@ -96,5 +95,6 @@ pub fn set_robot_params() {
         legs: vec![l1, l2],
     };
     generate_file!("yaml", &config, |content| {
-        fs::write("description/robot_param.yml", content)});
+        fs::write("description/robot_param.yml", content)
+    });
 }

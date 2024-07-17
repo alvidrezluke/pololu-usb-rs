@@ -1,7 +1,7 @@
+use crate::robot::desc::{Direction, Motor};
+use crate::robot::{math, LOWER_LEG_LENGTH, UPPER_LEG_LENGTH};
 use libm::{acos, atan2};
 use ndarray::{array, Array1};
-use crate::robot::desc::{Direction, Motor};
-use crate::robot::{LOWER_LEG_LENGTH, math, UPPER_LEG_LENGTH};
 
 /*
     end_pos: end effector desired position
@@ -36,6 +36,4 @@ pub fn calc_servo_pos(end_pos: &Array1<f64>, dir: Direction) -> f64 {
 
     S_i = p_c + R_c * b_i - a_i
 */
-pub fn inverse_kinematics(target: Array1<f64>, motors: Array1<Motor>) {
-
-}
+pub fn inverse_kinematics(_target: Array1<f64>, _motors: Array1<Motor>) {}
