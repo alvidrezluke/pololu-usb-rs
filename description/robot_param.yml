@@ -1,0 +1,58 @@
+platform:
+  centroid_pos:
+    v: 1
+    dim:
+    - 3
+    data:
+    - 1.0
+    - 2.0
+    - 3.0
+  orientation:
+    v: 1
+    dim:
+    - 3
+    data:
+    - 1.0
+    - 2.0
+    - 0.0
+legs:
+- motor:
+    base_pos:
+      v: 1
+      dim:
+      - 3
+      data:
+      - 1.0
+      - 2.0
+      - 3.0
+    direction: Left
+    end_effector_offset:
+      v: 1
+      dim:
+      - 3
+      data:
+      - 1.0
+      - 2.0
+      - 0.0
+  top_leg_length: 175.0
+  bottom_leg_length: 41.14
+- motor:
+    base_pos:
+      v: 1
+      dim:
+      - 3
+      data:
+      - 2.0
+      - 2.0
+      - 2.0
+    direction: Right
+    end_effector_offset:
+      v: 1
+      dim:
+      - 3
+      data:
+      - 9.0
+      - 2.0
+      - 5.0
+  top_leg_length: 175.0
+  bottom_leg_length: 41.14
