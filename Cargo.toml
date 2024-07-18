@@ -10,10 +10,14 @@ members = [
 
 [dependencies]
 nusb = "0.1.9"
-plotters = "0.3.6"
 pololu-usb-rs = { path = "pololu-usb-rs" }
 libm = "0.2.8"
 ndarray = {version = "0.15.6", features = ["serde"]}
 serde = { version = "1.0.204", features = ["derive"] }
 serde_yml = "0.0.10"
 serde_json = "1.0.120"
+rust_decimal = {version ="1.35.0", features = ["maths"]}
+rust_decimal_macros = "1.35.0"
+egui = "0.28.1"
+eframe = "0.14.0"
+env_logger = "0.11.3"

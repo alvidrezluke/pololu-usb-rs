@@ -1,58 +1,95 @@
 platform:
-  centroid_pos:
-    v: 1
-    dim:
-    - 3
-    data:
-    - 1.0
-    - 2.0
-    - 3.0
-  orientation:
-    v: 1
-    dim:
-    - 3
-    data:
-    - 1.0
-    - 2.0
+  corners:
+  - pos:
+    - 10.0
+    - -75.0
     - 0.0
+    id: 0
+  - pos:
+    - 10.0
+    - -75.0
+    - 0.0
+    id: 1
+  - pos:
+    - 10.0
+    - -75.0
+    - 0.0
+    id: 2
+  - pos:
+    - 10.0
+    - -75.0
+    - 0.0
+    id: 3
+  - pos:
+    - 10.0
+    - -75.0
+    - 0.0
+    id: 4
+  - pos:
+    - 10.0
+    - -75.0
+    - 0.0
+    id: 5
+  centroid_pos:
+  - 0.0
+  - 0.0
+  - 170.07
+  orientation:
+  - 0.0
+  - 0.0
+  - 0.0
 legs:
 - motor:
+    id: 0
     base_pos:
-      v: 1
-      dim:
-      - 3
-      data:
-      - 1.0
-      - 2.0
-      - 3.0
-    direction: Left
-    end_effector_offset:
-      v: 1
-      dim:
-      - 3
-      data:
-      - 1.0
-      - 2.0
-      - 0.0
-  top_leg_length: 175.0
-  bottom_leg_length: 41.14
-- motor:
-    base_pos:
-      v: 1
-      dim:
-      - 3
-      data:
-      - 2.0
-      - 2.0
-      - 2.0
+    - 28.3
+    - -94.45
+    - 10.0
     direction: Right
-    end_effector_offset:
-      v: 1
-      dim:
-      - 3
-      data:
-      - 9.0
-      - 2.0
-      - 5.0
-  top_leg_length: 175.0
-  bottom_leg_length: 41.14
+  top_leg_length: 119.0
+  bottom_leg_length: 21.1
+- motor:
+    id: 1
+    base_pos:
+    - 95.95
+    - 22.72
+    - 10.0
+    direction: Left
+  top_leg_length: 119.0
+  bottom_leg_length: 21.1
+- motor:
+    id: 2
+    base_pos:
+    - 67.65
+    - 71.73
+    - 10.0
+    direction: Right
+  top_leg_length: 119.0
+  bottom_leg_length: 21.1
+- motor:
+    id: 3
+    base_pos:
+    - -67.65
+    - 71.73
+    - 10.0
+    direction: Left
+  top_leg_length: 119.0
+  bottom_leg_length: 21.1
+- motor:
+    id: 4
+    base_pos:
+    - -95.95
+    - 22.72
+    - 10.0
+    direction: Right
+  top_leg_length: 119.0
+  bottom_leg_length: 21.1
+- motor:
+    id: 5
+    base_pos:
+    - -28.3
+    - -94.45
+    - 10.0
+    direction: Left
+  top_leg_length: 119.0
+  bottom_leg_length: 21.1

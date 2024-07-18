@@ -1,20 +1,11 @@
-mod desc;
-mod kinematics;
-mod math;
+use crate::param::RobotConfig;
 
-use crate::robot::desc::Motor;
-
-use ndarray::{Array1, Array2};
-
-// in mm
-const LOWER_LEG_LENGTH: f64 = 41.14;
-const UPPER_LEG_LENGTH: f64 = 175.0;
+use crate::param;
 /*
 /// Loads robot parameters from .yml file
-    todo!()
 */
-pub fn get_robot_params() {
-    desc::get_robot_params();
+pub fn get_robot_params(path: &str) -> RobotConfig {
+    param::get_robot_params(path)
 }
 
 /*
@@ -22,16 +13,13 @@ pub fn get_robot_params() {
     todo!()
 */
 pub fn set_robot_params() {
-    desc::set_robot_params();
+    param::set_robot_params();
 }
 /*
     gamma: angle of roll
     beta : angle of pitch
     alpha: angle of yaw
 */
-pub fn calc_rot_matrix(gamma: f64, beta: f64, alpha: f64) -> Array2<f64> {
-    math::calc_rot_matrix(gamma, beta, alpha)
-}
 
 /*
 /// Computes Inverse kinematics
@@ -40,6 +28,8 @@ pub fn calc_rot_matrix(gamma: f64, beta: f64, alpha: f64) -> Array2<f64> {
     motors: vector of motors
     returns vector of angles
 */
-pub fn inverse_kinematics(target: Array1<f64>, motors: Array1<Motor>) {
-    kinematics::inverse_kinematics(target, motors)
-}
+
+// pub fn inverse_kinematics(robot_config: RobotConfig) {
+//     // kinematics::inverse_kinematics(robot_config)
+//     println!("{:?}", robot_config.get_corners())
+// }
