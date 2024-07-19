@@ -1,54 +1,71 @@
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
-use eframe::egui;
-struct MyApp {
-    name: String,
-    age: u32,
-}
+mod helper;
+mod frame_window;
 
+use eframe;
+use egui::Ui;
+use crate::gui::helper::format_data;
+
+#[derive(Clone, Debug)]
+struct Coordinate(&'static str, f64);
+#[derive(Clone, Debug)]
+enum DisplayMode {
+    Platform,
+    Servo,
+}
+#[derive(Clone, Debug)]
+pub(crate) struct MyApp {
+    display_mode: DisplayMode,
+    target_pos: [Coordinate; 3],
+    orientation: [Coordinate; 3],
+}
 impl Default for MyApp {
     fn default() -> Self {
-        Self {
-            name: "Arthur".to_owned(),
-            age: 42,
-        }
+        Self::new()
     }
 }
 
-// impl eframe::App for MyApp {
-//     fn update(&mut self, ctx: &eframe::egui::Context, _frame: &mut eframe::Frame) {
-//         eframe::egui::CentralPanel::default().show(ctx, |ui| {
-//             ui.heading("My egui Application");
-//             ui.horizontal(|ui| {
-//                 let name_label = ui.label("Your name: ");
-//                 ui.text_edit_singleline(&mut self.name)
-//                     .labelled_by(name_label.id);
-//             });
-//             ui.add(eframe::egui::Slider::new(&mut self.age, 0..=120).text("age"));
-//             if ui.button("Increment").clicked() {
-//                 self.age += 1;
-//             }
-//             ui.label(format!("Hello '{}', age {}", self.name, self.age));
-//
-//             // ui.image(egui::include_image!(
-//             //     "../../../crates/egui/assets/ferris.png"
-//             // ));
-//         });
-//     }
-// }
-// fn main() -> eframe::Result {
-//     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
-//     let options = eframe::NativeOptions {
-//         viewport: egui::ViewportBuilder::default().with_inner_size([320.0, 240.0]),
-//         ..Default::default()
-//     };
-//     eframe::run_native(
-//         "My egui App",
-//         options,
-//         Box::new(|cc| {
-//             // This gives us image support:
-//             egui_extras::install_image_loaders(&cc.egui_ctx);
-//
-//             Ok(Box::<MyApp>::default())
-//         }),
-//     )
-// }
+impl eframe::App for MyApp {
+    fn update(&mut self, ctx: &eframe::egui::Context, _frame: &mut eframe::Frame) {
+        frame_window::custom_window_frame(ctx, "Robot GUI", |ui| {
+            ui.horizontal(|ui| {
+                let name_label = ui.label("Type of Robot: Stewart Platform");
+            });
+            self.display_data(ui);
+        });
+
+    }
+    fn clear_color(&self, _visuals: &egui::Visuals) -> [f32; 4] {
+        egui::Rgba::TRANSPARENT.to_array() // Make sure we don't paint anything behind the rounded corners
+    }
+}
+impl MyApp {
+    pub fn new() -> Self {
+        Self{
+            display_mode: DisplayMode::Platform,
+            target_pos: [Coordinate("X", 0.0),Coordinate("Y", 0.0),Coordinate("Z", 0.0)],
+            orientation: [Coordinate("Roll", 0.0),Coordinate("Pitch", 0.0), Coordinate("Yaw", 0.0)],
+        }
+    }
+    fn display_data(&mut self, ui: &mut Ui){
+        ui.separator();
+        ui.heading("Platform Position");
+        egui::Grid::new("Platform Position")
+            .num_columns(2)
+            .spacing([20.0, 4.0])
+            .striped(true)
+            .show(ui, |ui| {
+                format_data(ui, &mut self.target_pos);
+            });
+        ui.separator();
+        ui.heading("Platform Orientation");
+        egui::Grid::new("Platform Orientation")
+            .num_columns(2)
+            .spacing([20.0, 4.0])
+            .striped(true)
+            .show(ui, |ui| {
+                format_data(ui, &mut self.orientation);
+            });
+    }
+}
+
+

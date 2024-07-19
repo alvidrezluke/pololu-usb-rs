@@ -3,8 +3,7 @@ use ndarray::{arr2, array, Array1, Array2};
 use rust_decimal::prelude::{FromPrimitive, ToPrimitive};
 use rust_decimal::{Decimal, MathematicalOps};
 use rust_decimal_macros::dec;
-// use rust_decimal::Decimal;
-use crate::param::{Direction, Leg};
+use crate::robot::{Direction, Leg};
 
 // in mm
 const LOWER_LEG_LENGTH: f64 = 119.0;

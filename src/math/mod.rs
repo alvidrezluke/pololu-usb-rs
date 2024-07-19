@@ -1,11 +1,11 @@
 pub(crate) mod kinematics;
 
 use crate::debug::print_type_of;
-use crate::param::{Corner, RobotConfig};
 use ndarray::linalg::Dot;
 use ndarray::{arr1, Array, Array1, Array2, ArrayBase, ArrayView, Ix1, OwnedRepr};
 use rust_decimal::Decimal;
 use rust_decimal_macros::dec;
+use crate::robot::{Corner, RobotConfig};
 
 // pub fn calc_rot_matrix(gamma: Decimal, beta: Decimal, alpha: Decimal) -> Array2<Decimal> {
 //     kinematics::calc_rot_matrix(gamma, beta, alpha)

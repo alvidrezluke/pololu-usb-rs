@@ -6,21 +6,24 @@ mod math;
 mod param;
 mod robot;
 
-use crate::robot::get_robot_params;
-
-use libm::cos;
-use ndarray::{arr1, Array, Array1, Array2, ArrayBase, ArrayView, Dim, OwnedRepr};
-use rust_decimal_macros::dec;
-use std::f64::consts::PI;
 
 const FILE_PATH: &str = "description/robot_param.yml";
-fn main() {
-    // let path: &str = "COM6";
-    // let baud_rate: u32 = 9600;
-    //
-    // let robot = get_robot_params(FILE_PATH);
-    // let t = math::inverse_kinematics(robot);
-    // let config: RobotConfig = get_robot_params();crate::math::kinematics::
-    // inverse_kinematics(robot);
-    // let mut a = Array::zeros((1, 0));
+fn main() -> eframe::Result{
+    env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
+
+    let options = eframe::NativeOptions {
+        viewport: egui::ViewportBuilder::default()
+            .with_decorations(false) // Hide the OS-specific "chrome" around the window
+            .with_inner_size([600.0, 500.0])
+            .with_min_inner_size([600.0, 500.0])
+            .with_transparent(true), // To have rounded corners we need transparency
+
+        ..Default::default()
+    };
+    eframe::run_native(
+        "Custom window frame", // unused title
+        options,
+        Box::new(|_cc| Ok(Box::<gui::MyApp>::default())),
+    )
+
 }
